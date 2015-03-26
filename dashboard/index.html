@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+	<title>SmartCube - Dashboard</title>
+	<!-- Basic Page Needs
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<meta charset="utf-8">
+	<meta name="description" content="Connect to your home from anywhere around the world, control 
+					lights, doors, speakers, televisions and so much more." />
+	<meta name="author" content="Smart Cube">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+	<!-- Mobile Specific Metas
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- FONT
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- CSS
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link rel="stylesheet" href="../css/custom.css">
+	<link rel="stylesheet" href="custom.css">
+</head>
+
+<body>
+	<div class="fullLoader">
+		<img id="loader" src="../img/loader_2.png" alt="logo"/>
+		<img src="../img/logo.png" alt="logo"/>
+	</div>
+	<div class="sidebar">
+		<li data-id="user"><i class="fa fa-user"></i></li>
+		<li data-id="add"><i class="fa fa-plus"></i>Add Devices</li>
+		<li data-id="settings" ><i class="fa fa-cog"></i>Settings</li>
+		<li data-id="logout" id="bottom"><i class="fa fa-power-off"></i>Logout</li>
+	</div>
+	<div class="extraMenu">
+		<div class="menuSelector" data-id="user">
+			<h3>Louis Dickinson</h3>
+			<span data-id="account">Account Details</span>
+			<div class="content account">
+				<form action="form/data" method="POST">
+					<input name="email" type="text" placeholder="Email" />
+				</form>
+			</div>
+			<span data-id="personal">Personal Details</span>
+			<div class="content address">
+				<form action="form/data" method="POST">
+					<input name="forename" type="text" placeholder="First name" />
+					<input name="surname" type="text" placeholder="Last name" />
+					<input name="address1" type="text" placeholder="Street name" />
+					<input name="city" type="text" placeholder="City" />
+					<input name="postcode" type="text" placeholder="Postcode" />
+				</form>
+			</div>
+			<span data-id="password">Password Reset</span>
+			<div class="content password">
+				<form action="form/data" method="POST">
+					<input name="pass1" type="text" placeholder="New Password" />
+					<input name="pass2" type="text" placeholder="Confirm Password" />
+				</form>
+			</div>
+			<span data-id="delete">Delete Account</span>
+			<div class="content account">
+				<form action="form/data" method="POST">
+					<input name="pass2" type="text" placeholder="Confirm Password" />
+				</form>
+			</div>
+		</div>
+		<div class="menuSelector" data-id="add">
+			<h3>Add Device</h3>
+			<span data-id="delete">Add Device to your account</span>
+			<div class="content">
+				<form id="add_submit" action="" method="POST">
+					<input name="deviceName" placeholder="Name the device" />
+					<select name="device">
+						<option value="" selected disabled>Select Device</option>
+						<option value="switch">Light</option>
+						<option value="range">Temperature</option>
+						<option value="color">Philips Hue</option>
+						<option value="status">Door Lock</option>
+					</select>
+					<button type="submit">Next</button>
+				</form>
+			</div>
+		</div>
+		<div class="menuSelector" data-id="settings">
+			<h3>Add User</h3>
+			<span data-id="delete">Add User via email</span>
+			<div class="content">
+				<form id="add_submit" action="" method="POST">
+					<input name="deviceName" placeholder="User's email" />
+					<select name="device">
+						<option value="" selected disabled>Select Device</option>
+						<option value="switch">Light</option>
+						<option value="range">Temperature</option>
+						<option value="color">Philips Hue</option>
+						<option value="status">Door Lock</option>
+					</select>
+					<input id="newUserPass" name="newUserPass" placeholder="Genarated Password" style="margin-bottom:10px;"/> 
+					<button type="submit">Submit</button>
+				</form>
+			</div>
+			<span data-id="delete">Revoke User access</span>
+			<div class="content">
+				<form id="add_submit" action="" method="POST">
+					<input name="deviceName" placeholder="Name the device" />
+					<select name="device">
+						<option value="" selected disabled>Select Device</option>
+						<option value="switch">Light</option>
+						<option value="range">Temperature</option>
+						<option value="color">Philips Hue</option>
+						<option value="status">Door Lock</option>
+					</select>
+					<button type="submit">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="panel">
+ 		<div class="type">
+			SmartCube Dashboard
+		</div>
+	</div>
+	<div class="fullscreen blackout">
+		<div class="colorPicker">
+			<div class="preview" style="width:50px;height:50px;"></div>
+			<canvas id="picker" var="1" width="300" height="300"></canvas>
+		</div>
+	</div>
+	<script src="../js/colorpicker.js"></script>
+	<script src="../js/addDevice.js"></script>
+	<script src="../js/index.js"></script>
+	<script src="../js/testing.js"></script>
+	<script>
+		$(function() {			
+			var lsEmail = localStorage.email, lsName = localStorage.forename;
+			console.log(lsName);
+			if(lsEmail != ''){
+				$('.sidebar li[data-id="user"]').append(lsName);
+				$('.extraMenu div[data-id="user"] h3').html(lsEmail);
+				$('.fullLoader').fadeOut(500);
+			}else{
+ 				window.location.href = "http://louisdickinson.com/smartcube/#signin";
+			}
+			
+			//This is a popup message that will be shown when the user enters the application
+			if(lsEmail){
+				$('body').append("<div class='notification'>Welcome " + lsEmail + "</div>").delay(2000).queue(function() {
+					$('.notification').addClass('pleasegodown').delay(1000).queue(function() {
+						$(this).remove();
+					});
+				});
+			}
+			
+			$('.device[data-name="hue-bulb"] .status').on("change mousemove", function() {
+				$(this).parent().css('background', $(this).html());
+			});
+			$('.device[data-name="hue-bulb"] .status').trigger("mousemove");
+
+			$('.slider').on("change mousemove", function() {
+				$(this).next().children().html(' ' + $(this).val() + '&#x2103;');
+			});
+
+/* 			$('.device[data-name="temp"] .slider').val(26);
+			$('.device[data-name="temp"] .slider').trigger("change");
+			setInterval(function() {
+				var i = $('.device[data-name="front-door"] .status');
+				if (i.html() == 'LOCKED') {
+					i.html('UNLOCKED');
+				} else {
+					i.html('LOCKED');
+				}
+			}, 1000);
+			setInterval(function() {
+				var i = $('.device[data-name="room-temp"] .slider');
+				var v;
+				if (i.val() <= i.attr('max') && i.val() != i.attr('min')) {
+					v = i.val() - 1;
+				} else if (i.val() == i.attr('min')) {
+					v = i.val() + 1;
+				} else {
+					v = i.val() + 1;
+				}
+				$('.device[data-name="room-temp"] .slider').val(v);
+				$('.device[data-name="room-temp"] .slider').trigger("change");
+			}, 100); */
+			
+			//Rearrange devices using jQueryUI 
+			$(".panel").sortable();
+			$(".panel").disableSelection();
+			
+			function createPass(x) {
+				var randomstring = Math.random().toString(36).slice(-8);
+				$(x).val(randomstring);
+			}
+			
+			$('#newUserPass').keypress(function(){
+				createPass($(this));
+			});
+		});
+	</script>
+</body>
+</html>

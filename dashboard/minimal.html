@@ -1,0 +1,389 @@
+<!doctype html>
+<html>
+<head>
+	<title>Smart Cube</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<style>
+	body{
+		margin:0;
+		padding:0;
+		font-family:'Helvetica',San-Serif;
+		background:#ededed;
+	}
+	.wrapper{
+		margin: auto;
+		position: absolute;
+		top: 0;
+		left: 10px;
+		right: 10px;
+		max-width: 600px;
+		min-height: 100%;
+		background: #fff;
+		padding-bottom: 50px;
+		box-shadow: 0 0 5px rgba(0,0,0,0.2);
+		box-sizing: border-box;
+	}
+	@media (max-width:320px){
+		.wrapper{
+			margin-top:10px;
+		}
+	}
+	a{color:#fff;text-decoration:none;}
+	h1{
+		margin:0;
+		padding:50px 0;
+		font-weight:200;
+		font-size:50px;
+		text-align:center;
+		background:rgba(7, 205, 100,1);
+		color:#fff;
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+	}
+	@media (max-width:540px){
+		h1{
+			padding:25px 0;
+			font-size:22px;
+		}
+	}
+	p.about{
+		margin:0;
+		padding:30px 40px;
+		font-size:16px;
+		text-align:justify;
+		border-bottom:1px solid #ededed;
+	}
+	@media (max-width:540px){
+		p.about{
+			padding:20px 10px;
+			font-size:14px;
+		}
+	}
+	.tabs{
+		position:relative;
+		margin:auto;
+		padding:0;
+		width:100%;
+		line-height:40px;
+		font-size:15px;
+		text-align:center;
+		border-bottom:1px solid #ededed;
+		overflow:hidden;
+	}
+	.tabs span{
+		width:50%;
+		height:100%;
+		display:inline-block;
+		float:left;
+		cursor:pointer;
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		z-index:10;
+		transition:0.2s;
+	}
+	.tabs .active{
+ 		color:#fff;
+		background:rgba(7, 205, 100,0.8);
+	}
+ 	.tabs .bg_span{
+		display:none;
+	}
+/*		position:absolute;
+		margin:auto;
+		top:0;
+		left:0;
+		width:50%;
+		height:100%;
+		background:rgba(7, 205, 100,0.8);
+	} */
+		
+	ul{
+		margin:0;
+		list-style:none;
+		padding:0;
+	}
+	ul li{
+		position:relative;
+		margin:0;
+		line-height:60px;
+		text-indent:20px;
+		font-size:22px;
+		border-bottom:1px solid #ededed;
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+	}
+	@media (max-width:540px){
+		ul li{
+			line-height:50px;
+			font-size:17px;
+		}
+	}
+	ul li span{
+		position:absolute;
+		margin:auto;
+		top:0;
+		right:20px;
+		bottom:0;
+		width:70px;
+		height:35px;
+		border-radius:17.5px;
+		border:1px solid #ededed;
+		transition:0.2s;
+	}
+	ul li span::before{
+		position: absolute;
+		margin: auto;
+		top: 2px;
+		right: 37px;
+		width: 31px;
+		height: 31px;
+		border-radius: 100%;
+		background:#ededed;
+		content: '';
+		transition:0.2s;
+	}
+	li.active span{
+		background: rgba(7, 205, 100,1);
+		border:1px solid rgba(7, 205, 100,1);
+	}
+	li.active span::before{
+		right:2px;
+		background:#fff;
+	}
+		
+	/* Slider Style */
+
+	input[type=range] {
+		/*removes default webkit styles*/
+		-webkit-appearance: none;
+
+		/*fix for FF unable to apply focus style bug */
+		border: 1px solid #ededed;
+
+		/*required for proper track sizing in FF*/
+		width: 300px;
+	}
+	input[type=range]::-webkit-slider-runnable-track {
+		width: 300px;
+		height: 40px;
+		background: none;
+		border: none;
+		padding:2px;
+	}
+	input[type=range]::-webkit-slider-thumb {
+		position:relative;
+		-webkit-appearance: none;
+		border: none;
+		height: 34px;
+		width: 34px;
+		border-radius: 100%;
+		border:0;
+		margin-top: 1px;
+		background:#ededed;
+		transition:background 0.2s;
+	}
+	input[type=range]:focus {
+		outline: none;
+	}
+	input[type=range]:focus::-webkit-slider-thumb::after{
+		content:'';
+		position:absolute;
+		margin:auto;
+		left:0;
+		right:0;
+		min-width:20px;
+		height:20px;
+		top:-30px;
+		background:red;
+		border-radius:3px;
+		text-align:center;
+		color:#fff;
+		padding:2px;]display:none;
+	}
+	li:hover input[type=range]::-webkit-slider-thumb {
+	   background:rgb(0, 221, 133);
+	}
+
+	input[type=range]::-moz-range-track {
+		width: 300px;
+		height: 5px;
+		background: #ddd;
+		border: none;
+		border-radius: 3px;
+	}
+	input[type=range]::-moz-range-thumb {
+		border: none;
+		height: 16px;
+		width: 16px;
+		border-radius: 50%;
+		background: goldenrod;
+	}
+
+	/*hide the outline behind the border*/
+	input[type=range]:-moz-focusring{
+		outline: 1px solid white;
+		outline-offset: -1px;
+	}
+
+	input[type=range]::-ms-track {
+		width: 300px;
+		height: 5px;
+
+		/*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+		background: transparent;
+
+		/*leave room for the larger thumb to overflow with a transparent border */
+		border-color: transparent;
+		border-width: 6px 0;
+
+		/*remove default tick marks*/
+		color: transparent;
+	}
+	input[type=range]::-ms-fill-lower {
+		background: #777;
+		border-radius: 10px;
+	}
+	input[type=range]::-ms-fill-upper {
+		background: #ddd;
+		border-radius: 10px;
+	}
+	input[type=range]::-ms-thumb {
+		border: none;
+		height: 16px;
+		width: 16px;
+		border-radius: 50%;
+		background: goldenrod;
+	}
+	input[type=range]:focus::-ms-fill-lower {
+		background: #888;
+	}
+	input[type=range]:focus::-ms-fill-upper {
+		background: #ccc;
+	}
+		
+	input.slider {
+		position: absolute;
+		margin: auto;
+		top: 0;
+		bottom: 0;
+		right: 20px;
+		width: 70px;
+		height: 37px;
+		border: 1px solid #ededed;
+		border-radius: 20px;
+		transition:0.2s;
+	}
+		
+	li:hover input.slider{
+		width:120px;
+		border:1px solid rgba(7, 205, 100,1);
+	}	
+
+	/* End Slider Style */
+		
+		
+	.footer{
+		position:absolute;
+		left:0;
+		bottom:0;
+		line-height:50px;
+		font-size:13px;
+		width:100%;
+		text-align:center;
+		color:#A4A4A4;
+	}
+	@media (max-width:540px){
+		.footer{
+			line-height:25px;
+		}
+	}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<a href="">
+			<h1>Smart Cube</h1>
+		</a>
+		<p class="about">
+			Automation is happening all around us, it's helping us innovate in a wide range of area's.
+            Automation in the industrial sector has already impacted 100,000's of business's. It's a cheaper 
+            and safer way to create products but also adds precision and efficiency to the mix. Home automation 
+            is still an early concept, however, huge companies like Google and Microsoft are spending millions
+            of dollars developing in this area. Smart Cube is working on a user-friendly automation system that
+            can be accessed through your mobile phone or a web browser.
+		</p>
+		<div class="tabs">
+			<span class="active">My Devices</span>
+			<span>Add Device</span>
+			<div class="bg_span"></div>
+		</div>
+		<ul data-id="My Devices">
+			<li id="light" class="active">Light<span></span></li>
+			<li>Door<span></span></li>
+			<li>Temp
+				<input type="range" value="10" min="10" max="40" class="slider"/>
+				<div class="value"></div>
+			</li>
+		</ul>
+		<script>
+		$('input[type="range"]').on('mouseup', function() {
+		  this.blur();
+		}).on('mousedown input', function() {
+		  $('input[type=range]:focus::-webkit-slider-thumb:after, ' + 
+			'input[type=range]:focus::-ms-thumb:after, input[type=range]:focus::-moz-range-thumb:after').css('content',
+			this.value);
+		});
+		</script>
+		<ul data-id="Add Device" style="display:none">
+			<li>1 Device</li>
+			<li>2 Device</li>
+			<li>3 Device</li>
+			<li>4 Device</li>
+			<li>5 Device</li>
+			<li>6 Device</li>
+			<li>7 Device</li>
+			<li>8 Device</li>
+			<li>9 Device</li>
+			<li>10 Device</li>
+			<li>11 Device</li>
+			<li>12 Device</li>
+			<li>13 Device</li>
+			<li>14 Device</li>
+			<li>15 Device</li>
+			<li>16 Device</li>
+			<li>17 Device</li>
+			<li>18 Device</li>
+			<li>19 Device</li>
+			<li>20 Device</li>
+		</ul>
+		<div class="footer">
+			Manchester Metropolitan University - Smart Home Final Year Project
+		</div>
+	</div>
+	<script>
+	$('li').click(function(){
+		$(this).toggleClass('active');
+	});
+		
+	$('#light').click(function(){
+		var st = $(this).attr('class');
+		if(!st) st = 0;
+		else st = 1;
+		$.post('http://10.0.41.104:8080/HomeAutomationServer/api/addevent',{ DevID: "2424", devNewValue: st }).done(function(data){
+			console.log(st);
+		});
+	});
+	
+	$('.tabs span').click(function(){
+		if(!$(this).hasClass('active')){
+			$('.tabs span').removeClass('active');
+			$(this).addClass('active');
+			$('ul').hide();
+ 			$('ul[data-id="' + $(this).text() + '"]').show();
+			
+			console.log($(this).text());
+		}
+	});
+	</script>
+</body>
+</html>

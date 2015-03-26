@@ -1,0 +1,222 @@
+.guest {
+    position: fixed;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background:rgb(0, 221, 133);
+    color:rgb(0, 221, 133);
+}
+
+.controlPanel {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 290px;
+    height: 370px;
+    background: #fff;
+    border-radius: 6px;
+}
+h1,
+h2,
+h3{
+	text-align:center;
+	font-size:35px;
+}
+h2{
+	text-align:center;
+	font-size:18px;
+}
+h3 {
+	position:relative;
+  font-size: 14px;
+  line-height: 35px;
+}
+a{
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	color:rgb(0, 221, 133);
+	text-decoration:none;
+}
+
+
+ul {
+	margin: 0;
+	list-style: none;
+	padding: 0;
+	border-top: 1px solid #ededed;
+}
+
+ul li {
+	position: relative;
+	margin: 0;
+	line-height: 60px;
+	text-indent: 20px;
+	font-size: 22px;
+	border-bottom: 1px solid #ededed;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+@media (max-width:540px) {
+	ul li {
+		line-height: 50px;
+		font-size: 17px;
+	}
+}
+
+ul li span {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	right: 20px;
+	bottom: 0;
+	width: 70px;
+	height: 35px;
+	border-radius: 17.5px;
+	border: 1px solid #ededed;
+	transition: 0.2s;
+}
+
+ul li span::before {
+	position: absolute;
+	margin: auto;
+	top: 2px;
+	right: 37px;
+	width: 29px;
+	height: 29px;
+	border-radius: 100%;
+	background: #ededed;
+	content: '';
+	transition: 0.2s;
+}
+
+li.active span {
+	background: rgba(7, 205, 100,1);
+	border: 1px solid rgba(7, 205, 100,1);
+}
+
+li.active span::before {
+	right: 2px;
+	background: #fff;
+}
+		
+	/* Slider Style */
+
+input[type=range] {
+		/*removes default webkit styles*/
+	-webkit-appearance: none;
+		/*fix for FF unable to apply focus style bug */
+	border: 1px solid #ededed;
+		/*required for proper track sizing in FF*/
+	width: 300px;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+	width: 300px;
+	height: 40px;
+	background: none;
+	border: none;
+	padding: 2px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+	position: relative;
+	-webkit-appearance: none;
+	border: none;
+	height: 29px;
+	width: 29px;
+	border-radius: 100%;
+	border: 0;
+	margin-top: 4px;
+	background: #ededed;
+	transition: background 0.2s;
+}
+
+input[type=range]:focus {
+	outline: none;
+}
+
+li:hover input[type=range]::-webkit-slider-thumb {
+	background: rgb(0, 221, 133);
+}
+
+input[type=range]::-moz-range-track {
+	width: 300px;
+	height: 5px;
+	background: #ddd;
+	border: none;
+	border-radius: 3px;
+}
+
+input[type=range]::-moz-range-thumb {
+	border: none;
+	height: 16px;
+	width: 16px;
+	border-radius: 50%;
+	background: goldenrod;
+}
+
+	/*hide the outline behind the border*/
+input[type=range]:-moz-focusring {
+	outline: 1px solid white;
+	outline-offset: -1px;
+}
+
+input[type=range]::-ms-track {
+	width: 300px;
+	height: 5px;
+		/*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+		background: transparent;
+
+		/*leave room for the larger thumb to overflow with a transparent border */
+		border-color: transparent;
+		border-width: 6px 0;
+
+		/*remove default tick marks*/
+		color: transparent;
+	}
+	input[type=range]::-ms-fill-lower {
+		background: #777;
+		border-radius: 10px;
+	}
+	input[type=range]::-ms-fill-upper {
+		background: #ddd;
+		border-radius: 10px;
+	}
+	input[type=range]::-ms-thumb {
+		border: none;
+		height: 16px;
+		width: 16px;
+		border-radius: 50%;
+		background: goldenrod;
+	}
+	input[type=range]:focus::-ms-fill-lower {
+		background: #888;
+	}
+	input[type=range]:focus::-ms-fill-upper {
+		background: #ccc;
+	}
+		
+	input.slider {
+		position: absolute;
+		margin: auto;
+		top: 0;
+		bottom: 0;
+		right: 20px;
+		width: 70px;
+		height: 37px;
+		border: 1px solid #ededed;
+		border-radius: 20px;
+		transition:0.2s;
+	}
+		
+	li:hover input.slider{
+		width:120px;
+		border:1px solid rgba(7, 205, 100,1);
+	}	
