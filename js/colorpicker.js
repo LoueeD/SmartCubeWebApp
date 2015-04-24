@@ -27,6 +27,7 @@ $(function(){
         // update preview color
         var pixelColor = "rgb("+pixel[0]+", "+pixel[1]+", "+pixel[2]+")";
         $('.preview').css('backgroundColor', pixelColor);
+/* 		$('.lightness').css('background','linear-gradient(to right,white, ' + pixelColor + ')'); */
     });
     $('#picker').click(function(e) { // click event handler
 		$('.preview').addClass('pulse').delay(400).queue(function() {
@@ -35,7 +36,16 @@ $(function(){
         });
 		var color = $('.preview').css('backgroundColor');
 		var name = $('.colorPicker').attr('data-name');
+		
 		$('.device[data-name="' + name + '"] span').css('backgroundColor', color);
+		
+		//rgb to hsl -> h
+		var h = convertRGB(color);
+		console.log('Hsl = ' + h);
+		if(h && hjs){
+			var res = hjs.setHueSat(1,h,255);
+		}
+		
 		$('.fullscreen').fadeOut(300);
     });
 	
